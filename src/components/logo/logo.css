@@ -1,0 +1,9 @@
+.logo-div {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo {
+  width: 5rem;
+  height: 5rem;
+}
