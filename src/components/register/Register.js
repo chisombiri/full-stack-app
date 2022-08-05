@@ -1,6 +1,45 @@
-import React from "react";
+import { useState } from "react";
 
-const Register = ({ onHome, onSignin }) => {
+const Register = ({ onHome, onSignin, loadUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const onNameChange = (e) => {
+    setName(e.target.value);
+    // console.log(name);
+  };
+
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
+    // console.log(email);
+  };
+
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+    // console.log(password);
+  };
+
+  const onSubmitRegister = (e) => {
+    // e.preventDefault();
+    fetch("http://localhost:3002/register", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        if (user) {
+          loadUser(user);
+          onHome();
+        }
+      });
+  };
+
   return (
     <article className="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 center">
       <main className="pa4 black-80">
@@ -12,6 +51,7 @@ const Register = ({ onHome, onSignin }) => {
                 Username
               </label>
               <input
+                onChange={onNameChange}
                 className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                 type="text"
                 name="name"
@@ -23,6 +63,7 @@ const Register = ({ onHome, onSignin }) => {
                 Email
               </label>
               <input
+                onChange={onEmailChange}
                 className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                 type="email"
                 name="email-address"
@@ -34,6 +75,7 @@ const Register = ({ onHome, onSignin }) => {
                 Password
               </label>
               <input
+                onChange={onPasswordChange}
                 className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                 type="password"
                 name="password"
@@ -46,7 +88,7 @@ const Register = ({ onHome, onSignin }) => {
               className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
               type="submit"
               value="Register"
-              onClick={onHome}
+              onClick={onSubmitRegister}
             />
           </div>
           <div className="lh-copy mt3">

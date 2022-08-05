@@ -1,22 +1,12 @@
-import { useState } from "react";
+import React from "react";
 import "./link-form.css";
 
-const LinkForm = () => {
-  const [input, setInput] = useState("");
-  const [submittedLink, setSubmittedLink] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleInputChange = (e) => {
-    console.log(e.target.value);
-    setInput(e.target.value);
-  };
-
-  const handleBtnSubmit = () => {
-    console.log("click");
-    setSubmittedLink(input);
-    setSubmitted(true);
-  };
-
+const LinkForm = ({
+  handleBtnSubmit,
+  handleInputChange,
+  submittedLink,
+  submitted,
+}) => {
   return (
     <div>
       <p className="f3">Let's see how many links / images you can submit</p>

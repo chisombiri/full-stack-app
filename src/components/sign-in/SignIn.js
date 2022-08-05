@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SignIn = ({ onHome, onRegister }) => {
+const SignIn = ({ onHome, onRegister, loadUser }) => {
   const [signInEmail, setsignInEmail] = useState("");
   const [signInPassword, setsignInPassword] = useState("");
 
@@ -14,7 +14,8 @@ const SignIn = ({ onHome, onRegister }) => {
     // console.log(signInPassword);
   };
 
-  const onSubmitSignIn = () => {
+  const onSubmitSignIn = (e) => {
+    e.preventDefault();
     fetch("http://localhost:3002/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -24,8 +25,9 @@ const SignIn = ({ onHome, onRegister }) => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data === "success") {
+      .then((user) => {
+        if (user.id) {
+          loadUser(user);
           onHome();
         }
       });
