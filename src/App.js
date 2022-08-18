@@ -35,7 +35,7 @@ function App() {
     setSubmittedLink(input);
     setSubmitted(true);
     if (input.length !== 0) {
-      fetch("http://localhost:3002/link", {
+      fetch("http://localhost:3012/link", {
         method: "put",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
